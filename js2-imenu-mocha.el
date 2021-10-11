@@ -159,9 +159,9 @@ NODE must be a function call."
 
 (defun js2-imenu-mocha--node-body (node)
   "Return a node corresponding to the body of a `describe' or `it' NODE."
-  (when-let ((second-arg (cadr (js2-call-node-args node))))
-    (when (js2-function-node-p second-arg)
-      (js2-function-node-body second-arg))))
+  (when-let ((last-arg (car (last (js2-call-node-args node)))))
+    (when (js2-function-node-p last-arg)
+      (js2-function-node-body last-arg))))
 
 (provide 'js2-imenu-mocha)
 ;;; js2-imenu-mocha.el ends here

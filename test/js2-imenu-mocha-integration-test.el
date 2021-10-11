@@ -69,6 +69,17 @@
                     '(("describe top-level"
                        ("*declaration*" . 1))))))))
 
+(ert-deftest js2-imenu-mocha-integration-describe-with-argument ()
+  (js2-imenu-mocha-integration--create-js2-buffer
+   ("describe(\"top-level\", {}, () => {\n"
+    "it(\"test 1\", () => {});\n"
+    "})\n")
+   (let ((result (js2-imenu-mocha--generate-imenu-entries)))
+     (should (equal result
+                    '(("describe top-level"
+                       ("*declaration*" . 1)
+                       ("it test 1" . 35))))))))
+
 (ert-deftest js2-imenu-mocha-integration-fdescribe ()
   (js2-imenu-mocha-integration--create-js2-buffer
    ("fdescribe(\"top-level\", () => {})\n")
